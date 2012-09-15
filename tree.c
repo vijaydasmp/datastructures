@@ -57,6 +57,7 @@ int leafs(node *root)
 
 	return count;
 }
+// Boundar Traversal is not yet completed correctly
 void boundary_traversal(node **_root,node *root)
 {
 	static int side=0; // 0 --> L and 1 ---> R
@@ -187,9 +188,6 @@ void rotateR(node **root)
 {
 	int data;
 	node *left;
-//	node *root;
-//	root = *_root;
-//	printf("\nRight Rotate at %d",(*root)->data);
 
 	data = (*root)->data;
 	left = (*root)->left;
@@ -228,14 +226,14 @@ void rebalance(node **root)
 		{
 			if( getbf((*root)->right) < 0)
 			{
-//				printf("\nRight child's Right subtree is heavy");
-				// Case of Single Left Rotation
+				//	Right child's Right subtree is heavy
+				//  Case of Single Left Rotation
 				rotateL(root);
 			}
 			else
 			{
 				// Case of One Right rotation @ root->right and Left Rotation at root
-//				printf("\nRight child's Left subtree is heavy");
+				//	Right child's Left subtree is heavy
 				rotateR((&((*root)->right)));
 				rotateL(root);
 			}
@@ -316,6 +314,7 @@ node *create_bst(node **root)
 		(*root)->data=data;
 		data=0; // reset
 	}
+
 	while(TRUE)
 	{
 		fflush(stdout);
@@ -326,16 +325,11 @@ node *create_bst(node **root)
 			break;
 		insert_bst(root,data);
 		isbal=isBalanced(*root);
-//		printf("\n After Inserting Data %d Tree ",data);
-//		isbal ? printf(" is Balanced") : printf(" became disBalanced");
-//		fflush(stdout);
 
 		/*Invoking selfbalance*/
 		if(!isbal)
 		{
-//			printf("Height of Tree Before Balancing %d",height(*root));
 			rebalance(root);
-//			printf("Height of Tree After Balancing %d",height(*root));
 		}
 	}
 
@@ -358,8 +352,8 @@ int main()
   printf("\n Leafs_N  = %d",leafs_n);
   printf("\n\nBoundary traversal :- ");
   boundary_traversal(&_root,_root);
-//  isbal=isBalanced(_root);
-//  printf("\nTree Looks ");
-//  isbal ? printf("Balanced") : printf("DisBalanced");
+  isbal=isBalanced(_root);
+  printf("\nTree Looks ");
+  isbal ? printf("Balanced") : printf("DisBalanced");
   return 0;
 }
